@@ -1,0 +1,35 @@
+use std::io;
+use std::collections::HashMap;
+
+fn main() {
+    let mut input = String::new();
+    io::stdin().read_line(&mut input).unwrap();
+    let _n: usize = input.trim().parse().unwrap();
+    
+    input.clear();
+    io::stdin().read_line(&mut input).unwrap();
+    let numbers: Vec<i32> = input
+        .trim()
+        .split_whitespace()
+        .map(|x| x.parse().unwrap())
+        .collect();
+    
+    let mut freq_map = HashMap::new();
+    for &num in &numbers {
+        *freq_map.entry(num).or_insert(0) += 1;
+    }
+    
+    let mut has_odd = false;
+    for (_num, &count) in freq_map.iter() {
+        if count % 2 == 1 {
+            has_odd = true;
+            break;
+        }
+    }
+    
+    if has_odd {
+        println!("Conan");
+    } else {
+        println!("Agasa");
+    }
+}
