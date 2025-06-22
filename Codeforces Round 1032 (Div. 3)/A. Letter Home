@@ -1,0 +1,39 @@
+#include <bits/stdc++.h>
+using namespace std;
+ 
+bool solve(const string& s) {
+    int n = s.length();
+    if (n < 3) return false;
+    
+    for (int i = 1; i < min(n-1, 100); i++) {
+        for (int j = 1; j <= min(n-i-1, 100); j++) {
+            if (i + j >= n) continue;
+            string_view b(s.data() + i, j);
+            string_view left(s.data(), i);
+            string_view right(s.data() + i + j, n - i - j);
+            string_view ac = left;
+            
+            string temp = string(left) + string(right);
+            if (temp.find(b) != string::npos) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+ 
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+    
+    int t;
+    cin >> t;
+    while (t--) {
+        int n;
+        cin >> n;
+        string s;
+        cin >> s;
+        cout << (solve(s) ? "Yes\n" : "No\n");
+    }
+    return 0;
+}
