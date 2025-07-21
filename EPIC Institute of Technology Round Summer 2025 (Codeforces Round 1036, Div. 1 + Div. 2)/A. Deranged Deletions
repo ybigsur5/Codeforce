@@ -1,0 +1,32 @@
+def is_derangement(arr):
+    sorted_arr = sorted(arr)
+    return all(arr[i] != sorted_arr[i] for i in range(len(arr)))
+ 
+def solve():
+    n = int(input())
+    a = list(map(int, input().split()))
+    
+    if n == 1:
+        print("NO")
+        return
+        
+    if is_derangement(a):
+        print("YES")
+        print(len(a))
+        print(*a)
+        return
+        
+    for length in range(n-1, 0, -1):
+        for i in range(n-length+1):
+            subarray = a[i:i+length]
+            if is_derangement(subarray):
+                print("YES")
+                print(len(subarray))
+                print(*subarray)
+                return
+    
+    print("NO")
+ 
+t = int(input())
+for _ in range(t):
+    solve()
